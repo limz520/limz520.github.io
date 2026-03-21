@@ -22,17 +22,11 @@ jobs:
         with:
           node-version: '20'
           
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.14.4
-          run_install: false
-          
       - name: Install dependencies
-        run: pnpm install --ignore-scripts
+        run: npm install
       
       - name: Build site
-        run: pnpm run build
+        run: npm run build
       
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
