@@ -1136,6 +1136,555 @@ int main() {
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;s&gt;求过&lt;/s&gt;&lt;/p&gt;
+</content:encoded></item><item><title>集训笔记</title><link>https://limz520.github.io/posts/note/</link><guid isPermaLink="true">https://limz520.github.io/posts/note/</guid><description>笔记</description><pubDate>Sat, 29 Apr 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;20230128&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;## STL
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;vector&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/img_convert/26494408bf8516ed012409f0a0127f2b.png&quot; alt=&quot;vector&quot; /&gt;&lt;/p&gt;
+&lt;h3&gt;queue&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;	push() 在队尾插入一个元素
+
+	pop() 删除队列第一个元素
+
+	size() 返回队列中元素个数
+
+	empty() 如果队列空则返回true
+    
+	front() 返回队列中的第一个元素
+
+	back() 返回队列中最后一个元素
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;iterator&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/img_convert/d5c3f1c28583919e9686dce526d94866.png&quot; alt=&quot;iterator&quot; /&gt;&lt;/p&gt;
+&lt;h3&gt;deque&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;	deque&amp;lt;int&amp;gt; dq; //定义一个储存整型变量的双端队列dq
+
+	deque双端插入和删除操作
+
+	push_back(elem);//在容器尾部添加一个数据
+
+	push_front(elem);//在容器头部插入一个数据
+
+	pop_back();//删除容器最后一个数据
+
+	pop_front();//删除容器第一个数据
+
+	at(idx);//返回索引idx所指的数据，如果idx越界，抛出out_of_range。
+
+	operator[];//返回索引idx所指的数据，如果idx越界，不抛出异常，直接出错。
+
+	front();//返回第一个数据。
+
+	back();//返回最后一个数据
+
+
+
+	在pos位置插入一个elem
+
+	d2.insert(d2.begin(), elem);
+
+	deque.size();//返回容器中元素的个数
+
+	deque.empty();//判断容器是否为空
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Priority_queue&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;	empty( )  //判断一个队列是否为空
+    
+	pop( )  //删除队顶元素
+
+	push( )  //加入一个元素
+
+	size( )  //返回优先队列中拥有的元素个数
+
+	top( )  //返回优先队列的队顶元素
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;set&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;	insert(x) 当容器中没有等价元素的时候，将元素 x 插入到 set 中。
+    
+	erase(x) 删除值为 x 的 所有 元素，返回删除元素的个数。
+    
+	erase(pos) 删除迭代器为 pos 的元素，要求迭代器必须合法。
+    
+	erase(first,last) 删除迭代器在 [first,last) 范围内的所有元素。
+    
+	clear() 清空 set。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;map&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;	erase(key) 函数会删除键为 key 的 所有 元素。返回值为删除元素的数量。
+    
+	erase(pos): 删除迭代器为 pos 的元素，要求迭代器必须合法。
+    
+	erase(first,last): 删除迭代器在 [first,last) 范围内的所有元素。
+    
+	clear() 函数会清空整个容器。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;ST表(倍增思想)&lt;/h3&gt;
+&lt;h3&gt;迭代式搜索&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;	弥补DFS和BFS的缺陷
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1&gt;20230129&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;# 树状数组
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;原理&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://oi-wiki.org/ds/images/fenwick.svg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h4&gt;区间查询&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;int getsum(int x) {  // a[1]..a[x]的和
+  int ans = 0;
+  while (x &amp;gt; 0) {
+    ans = ans + c[x];
+    x = x - lowbit(x);
+  }
+  return ans;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;单点修改&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;void add(int x, int k) {
+  while (x &amp;lt;= n) {  // 不能越界
+    c[x] = c[x] + k;
+    x = x + lowbit(x);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;建树&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;void init()//初始化{
+  memset(c,0,sizeof(c));
+    for(int i=1;i&amp;lt;=n;i++)
+      for(int j=i-lowbit(i)+1;j&amp;lt;=i;j++)
+        c[i]=c[i]+s[j];
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;区间查询&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;void add(ll s,ll num){
+  for(ll i=s;i&amp;lt;=n;i+=lowbit(i))  
+    tree[i]+=num;//树状数组维护差分修改
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;单点查询&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;int ask(int s){
+  int ans=0;
+    for(ll i=s;i&amp;gt;=1;i-=lowbit(i)) 
+      ans+=tree[i];//寻找差分的标记 
+  return ans;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;lowbit原理&lt;/h4&gt;
+&lt;p&gt;将 x 的二进制所有位全部取反，再加 1，就可以得到 -x 的二进制编码。例如，6 的二进制编码是 110，全部取反后得到 001，加 1 得到 010。&lt;/p&gt;
+&lt;p&gt;设原先 x 的二进制编码是 (...)10...00，全部取反后得到 [...]01...11，加 1 后得到 [...]10...00，也就是 -x 的二进制编码了。这里 x 二进制表示中第一个 1 是 x 最低位的 1。&lt;/p&gt;
+&lt;p&gt;(...) 和 [...] 中省略号的每一位分别相反，所以 x &amp;amp; -x = (...)10...00 &amp;amp; [...]10...00 = 10...00，得到的结果就是 lowbit。&lt;/p&gt;
+&lt;h1&gt;20230430&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P2532&quot;&gt;树屋阶梯&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1754&quot;&gt;球迷购票问题&lt;/a&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;卡特兰数模板题
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1976&quot;&gt;鸡蛋饼&lt;/a&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;卡特兰数模板题
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1722&quot;&gt;矩阵 II&lt;/a&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;卡特兰数模板题
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3807&quot;&gt;模板卢卡斯定理/Lucas 定理&lt;/a&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;快速幂+逆元
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P2010&quot;&gt;NOIP2016 普及组 回文日期&lt;/a&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;模拟
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9226&quot;&gt;糖果&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1115&quot;&gt;最大子段和&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1495&quot;&gt;P1495 【模板】中国剩余定理（CRT）/ 曹冲养猪&lt;/a&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;主函数部分弄懂了，但exgcd有几行不懂，问的zn同学
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3372&quot;&gt;P3372 【模板】线段树 1&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;复习了一下线段树
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1&gt;20230430&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P1135&quot;&gt;P1135 奇怪的电梯&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;深搜一直MLE，加优化后好了
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P9301&quot;&gt;P9301 [CCC 2023 J3] Special Event&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;模拟
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3372&quot;&gt;P3372 【模板】线段树 1&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;复习，理解了区间加
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P2613&quot;&gt;P2613 【模板】有理数取余&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;费马小定理：a^phi(p)≡1(mod p)a,p互质
++
+快速幂：二进制
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P3373&quot;&gt;P3373 【模板】线段树 2&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;打了一遍，不太懂懒标记，要开long long，不然只有30
+注：先乘后加，4倍空间
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1&gt;20230502&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P2023&quot;&gt;P2023 [AHOI2009] 维护序列&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;线段树2模板题
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9228&quot;&gt;P9228 原神&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;模拟
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P3385&quot;&gt;P3385 【模板】负环&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;复习了SPFA
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1&gt;20230612-20230618&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1006&quot;&gt;传纸条&lt;/a&gt; 四维DP&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P2866&quot;&gt;[USACO06NOV]Bad Hair Day S&lt;/a&gt; 栈&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T340633&quot;&gt;自然数的拆分&lt;/a&gt; 背包&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T340632&quot;&gt;数字组合&lt;/a&gt; 背包&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/B2105&quot;&gt;矩阵乘法&lt;/a&gt; 矩阵乘法模板&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/UVA442&quot;&gt;矩阵链乘 Matrix Chain Multiplication&lt;/a&gt; 模拟栈(注意:先进后出)&lt;/p&gt;
+&lt;h1&gt;20230703&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P2357&quot;&gt;P2357 守墓人&lt;/a&gt; 线段树&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3372&quot;&gt;P3372 【模板】线段树 1&lt;/a&gt; 复习了线段树1&lt;/p&gt;
+&lt;p&gt;看了一下数据结构课件，了解了平衡树，但还不会写，下午打了打线段树板子和守墓人&lt;/p&gt;
+&lt;h1&gt;20230704&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1518&quot;&gt;P1518 [USACO2.4] 两只塔姆沃斯牛 The Tamworth Two&lt;/a&gt; 搜索&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1816#submit&quot;&gt;P1816 忠诚&lt;/a&gt; 打了暴力&lt;/p&gt;
+&lt;p&gt;基础题:&lt;a href=&quot;https://www.luogu.com.cn/problem/CF652B&quot;&gt;z-sort&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下午打了打线段树板子，在oiwiki上学会了普通平衡树,尝试写了一下可持久化线段树1&lt;/p&gt;
+&lt;h1&gt;20230705&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3369&quot;&gt;P3369 【模板】普通平衡树&lt;/a&gt; 打了平衡树板子&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3810&quot;&gt;P3810 【模板】三维偏序（陌上花开）&lt;/a&gt; 昨天讲的cdq分治板子&lt;/p&gt;
+&lt;p&gt;又打了线段树板子，复习了一下平衡树&lt;/p&gt;
+&lt;h1&gt;20230706&lt;/h1&gt;
+&lt;p&gt;上午打了半天平衡树，结果还是只有60，心态崩力，下午切了几道红题和橙题&lt;s&gt;差点没A&lt;/s&gt;&lt;/p&gt;
+&lt;h1&gt;20230707&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9117&quot;&gt;P9117 [春季测试 2023] 涂色游戏&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3045&quot;&gt;P3045 [USACO12FEB] Cow Coupons G&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3545&quot;&gt;P3545 [POI2012] HUR-Warehouse Store&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;20230708&lt;/h1&gt;
+&lt;p&gt;上午打了模拟赛
+T1特判+5pts 正解DP&lt;/p&gt;
+&lt;p&gt;T2随机化+30pts&lt;/p&gt;
+&lt;p&gt;T3树剖&lt;/p&gt;
+&lt;p&gt;T4容斥原理&lt;/p&gt;
+&lt;p&gt;下午打了洛谷月赛+改题&lt;/p&gt;
+&lt;p&gt;T1二进制A了&lt;/p&gt;
+&lt;p&gt;T2暴力&lt;/p&gt;
+&lt;h1&gt;20230709&lt;/h1&gt;
+&lt;p&gt;预习+复习课程&lt;/p&gt;
+&lt;p&gt;做了几道小DP&lt;/p&gt;
+&lt;h1&gt;20230710&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/AT_dp_a&quot;&gt; AT_dp_a Frog 1&lt;/a&gt; DP&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P2048&quot;&gt;P2048 [NOI2010] 超级钢琴&lt;/a&gt; 打了30分暴力，还未优化&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P4025&quot;&gt;P4025 [PA2014] Bohater&lt;/a&gt; 贪心&lt;/p&gt;
+&lt;h1&gt;20230711&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P6346&quot;&gt;P6346 [CCO2017] 专业网络&lt;/a&gt; 用队列优化&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/CF865D&quot;&gt; CF865D Buy Low Sell High&lt;/a&gt; 贪心&lt;/p&gt;
+&lt;p&gt;今天做了很多板子题
+&lt;a href=&quot;https://www.luogu.com.cn/blog/limengze/mo-ban&quot;&gt;Here&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;20230712&lt;/h1&gt;
+&lt;p&gt;两道贪心，1蓝1紫，大致思想都差不多&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/CF865D&quot;&gt; CF865D Buy Low Sell High&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/CF1251E2&quot;&gt; CF1251E2 Voting (Hard Version)  &lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;讲的DP听的不是很懂，笛卡尔树还没写出来&lt;/p&gt;
+&lt;h1&gt;20230713&lt;/h1&gt;
+&lt;p&gt;打了线段树板子，又没有一遍A，原因是下放懒标记是   $ls$ 和 $rs$多写了&lt;/p&gt;
+&lt;p&gt;在洛谷交了前面两道贪心，一直 $UKE$ ，在CF上交就好了&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3369&quot;&gt; P3369 【模板】普通平衡树&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;看书调了调之前调了好几天的平衡树，理解了一些，用的树堆$(treap)$&lt;/p&gt;
+&lt;p&gt;复习了一下 $Dijkstra$ $Spfa$&lt;s&gt;(Ta死了)&lt;/s&gt;&lt;/p&gt;
+&lt;h1&gt;20230714&lt;/h1&gt;
+&lt;p&gt;用 $Dijkstra$ 写了个图论题&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1629&quot;&gt;P1629 邮递员送信&lt;/a&gt; 需要建反图，先跑一遍从原点到其他点，在跑一遍其他点到原点&lt;/p&gt;
+&lt;p&gt;两道贪心，用数组记录出现位置，出现位置靠后的先拿走，思想差不多，只不过是多组数据&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3419&quot;&gt;P3419 [POI2005] SAM-Toy Cars&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/SP688&quot;&gt; SP688 SAM - Toy Cars&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;打了平衡树+注释(&lt;a href=&quot;https://www.luogu.com.cn/blog/limengze/ping-heng-shu&quot;&gt;平衡树&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P7095&quot;&gt;P7095 [yLOI2020] 不离&lt;/a&gt; 打了50分贪心&lt;/p&gt;
+&lt;h1&gt;20230715&lt;/h1&gt;
+&lt;p&gt;昨天晚上打了洛谷比赛，A了6道题，rank208&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T352128?contestId=114059&quot;&gt;T352128 数字判断&lt;/a&gt; 直接模拟即可&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T352129?contestId=114059&quot;&gt;T352129 团伙首领&lt;/a&gt; 类似于STL做哈希，用一个set存储值，最后输出大小即可&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T352145?contestId=114059&quot;&gt;T352145 塔台超频&lt;/a&gt; 细节比较多，需要注意k的增大，塔的半径也增大，要更新&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T352157?contestId=114059&quot;&gt;T352157 Three-View Projection&lt;/a&gt; 题目比较绕，读懂后直接模拟字符串即可&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T352164?contestId=114059&quot;&gt;T352164 魔法少女扶苏&lt;/a&gt; 数据比较水，没想到暴力枚举就A了&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T351585?contestId=114059&quot;&gt;T351585 std::string&lt;/a&gt; hack题&lt;/p&gt;
+&lt;p&gt;上午打了模拟赛&lt;/p&gt;
+&lt;h3&gt;T1：&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T352834?contestId=115612&quot;&gt;T352834 【愚蠢的戴夫】向日葵代沟&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;考试上打了50分暴力（并不意外，对拍大样例过了，但是超时）最后果然T了&lt;/p&gt;
+&lt;p&gt;正解是二分树状数组或平衡树或线段树，都挺复杂的，最后选择了一种特殊暴力，大致思想就是用一个数组存储每个串的尾坐标，最后直接计算出左右两边的区间长度，挺巧妙的&lt;/p&gt;
+&lt;h3&gt;T2：&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T352818?contestId=115612&quot;&gt;T352818 【愚蠢的戴夫】树上的僵尸&lt;/a&gt; DP+容斥原理+树状数组优化&lt;/p&gt;
+&lt;h3&gt;T3：&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T352822?contestId=115612&quot;&gt;T352822 【愚蠢的戴夫】豌豆射手&lt;/a&gt; DP&lt;/p&gt;
+&lt;h3&gt;T4：&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T352846?contestId=115612&quot;&gt;T352846 简单的操作（merge）&lt;/a&gt; &lt;a href=&quot;https://sjzezoj.com/problem/993/solutions&quot;&gt;题解&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;20230716&lt;/h1&gt;
+&lt;p&gt;昨天晚上打了atcoder的比赛&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://atcoder.jp/contests/abc310/tasks/abc310_a&quot;&gt;A - Order Something Else&lt;/a&gt; 这道题重要的是看懂题，之后直接按要求输出答案&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://atcoder.jp/contests/abc310/tasks/abc310_b&quot;&gt;B - Strictly Superior&lt;/a&gt; 这道题要注意题目中的条件是or并不是and，然后直接判断条件即可&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://atcoder.jp/contests/abc310/tasks/abc310_c&quot;&gt;C - Reversible&lt;/a&gt; 根hash差不多，先用set存储，不过要把字符串反过来再存储一次，最后输出 $s.size(); $&lt;/p&gt;
+&lt;p&gt;剩下的题因为时间原因没时间看了。&lt;/p&gt;
+&lt;p&gt;上午没有做新题，先看了看昨晚的比赛，看了jiangly的代码和官方题解&lt;/p&gt;
+&lt;p&gt;下午做了&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P8637&quot;&gt;P8637 [蓝桥杯 2016 省 B] 交换瓶子&lt;/a&gt; 模拟&lt;/p&gt;
+&lt;h1&gt;20230717&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P2345&quot;&gt;P2345 [USACO04OPEN] MooFest G&lt;/a&gt; $tag $有cdq分治，但暴力也能过&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P8802&quot;&gt;P8802 [蓝桥杯 2022 国 B] 出差&lt;/a&gt; 挺好的 $Dijkstra$ 的板子题，无向图，稍微改改细节就能过&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P8732&quot;&gt;P8732 [蓝桥杯 2020 国 ABC] 答疑&lt;/a&gt; 贪心+排序，最优策略就是让时间短的人排在前面，使最小和最小&lt;/p&gt;
+&lt;p&gt;写了一篇&lt;a href=&quot;https://www.luogu.com.cn/blog/limengze/solution-p9457&quot;&gt;题解&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;20230718&lt;/h1&gt;
+&lt;p&gt;上午讲的题自我感觉比较困难，不看题解写不出来的那种(有的看了也写不出来)，不过复习了一些基础知识，又做了一些杂题&lt;/p&gt;
+&lt;p&gt;下午独立做了道贪心绿题，写了篇&lt;a href=&quot;https://www.luogu.com.cn/blog/limengze/solution-p8769&quot;&gt;题解&lt;/a&gt;，过了 &lt;s&gt;（喜）&lt;/s&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P8769&quot;&gt;	 P8769 [蓝桥杯 2021 国 C] 巧克力&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;题解都是用的堆，但本人一看到贪心+堆就想起前些天的反悔贪心，实在不太会，于是直接打了暴力，没想到过了，看了一眼题解都是堆，于是就交了。&lt;/p&gt;
+&lt;p&gt;又做了道比较麻烦的模拟&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P8791&quot;&gt;P8791 [蓝桥杯 2022 国 AC] 内存空间&lt;/a&gt; 样例都能过，不知道为什么没A，&lt;s&gt;（悲）&lt;/s&gt;&lt;/p&gt;
+&lt;h1&gt;20230719&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P8755&quot;&gt;P8755 [蓝桥杯 2021 省 AB2] 负载均衡&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;贪心+堆，按提议模拟即可&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9207&quot;&gt;P9207 灭罪「正直者之死」&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;贪心，将正负数分别排序，然后用 $sum$ 分别加上相应的值&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P8824&quot;&gt;P8824 [传智杯 #3 初赛] 终端&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;比较简单的小模拟，需要注意最后交换时的变量&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/CF19A&quot;&gt;World Football Cup&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;模拟+排序，按提议排序后取前 $\frac{n}{2}$个后再按字典顺序排完后输出&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/CF466C&quot;&gt;Number of Ways&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;比较经典的前缀和，枚举 $i$ 符合条件后 $ans++$&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/CF413C&quot;&gt;Jeopardy!&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;贪心+排序，可以用两遍循环分别取 $\times$ 的方案和 $+$的方案，最后取 $max$ 即可&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/CF420A&quot;&gt;Start Up&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;思路比较清晰的小模拟(但还是花了一些时间），刚开始可以判断特殊的回文字符，如果出现直接输出 $NO$ 即可，否则的话我们就把字符串翻转和之前的字符串比较&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P6023&quot;&gt;P6023 走路&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;比较简单的贪心，记录每天获得的积分，最后取最大时输出即可&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P8109&quot;&gt;P8109 [Cnoi2021] 幻想乡程序设计大赛&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;比较简单的贪心，直接 $min$ 即可&lt;/p&gt;
+&lt;h1&gt;20230720&lt;/h1&gt;
+&lt;h4&gt;上午模拟赛&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T354945?contestId=115613&quot;&gt;古代龙人的谜题(puzzle)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;用前缀和记录 $1$ 的个数，最后枚举区间 $1$ 的个数即可&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/T354925?contestId=115613&quot;&gt;指引（guide）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;贪心，把所有人的 $x$ 坐标从大到小排序，每扫描到一个值，如果是出口，则将权值为 $y$ 的数加入到数据结构里，如果是旅者，则将数据结构中最小的数取出并且 $ans++$&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/T354933?contestId=115613&quot;&gt;T354933 寻梦（fantasy）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;codeleading.com/article/214769540/&quot;&gt;题解&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;20230721&lt;/h1&gt;
+&lt;p&gt;今天主要复习了一些最短路和二分&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1339&quot;&gt;	P1339 [USACO09OCT] Heat Wave G&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;用的 $Dijkstra$ 板子，根据题意直接输出 $dis[t]$即可&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P5651&quot;&gt;P5651 基础最短路练习题&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;如果直接 $Dijkstra$ 跑一遍最终只有10pts，学长的解释是由于运算为 $xor$ ，不应该使用基于贪心的 $dijkstra$ 预处理，这样大小比较是不对的，应该使用 $bfs$ 。在学长知道后改A了&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P2299&quot;&gt;P2299 Mzc和体委的争夺战&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;要注意无向边，然后用 $Dijkstra$ 跑一遍，就行了&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P2440&quot;&gt;P2440 木材加工&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;二分查找，用 $check$ 写一个函数表示当前长度是否符合预期，然后二分即可，开 $long$  $long$&lt;/p&gt;
+&lt;h1&gt;20230722&lt;/h1&gt;
+&lt;p&gt;下午打了洛谷比赛 $270pts$， $Rank$ $319$&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9471&quot;&gt;P9471 [yLOI2022] 签到题&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;$&amp;lt;$ 真 $&amp;gt;$ 签到题，便利字符串统计个数即可&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9472&quot;&gt;P9472 [yLOI2022] 枕万梦&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这题看了一眼数据范围，正解不可能是暴力，于是可以把 $a_0$ 当做基准来计算，按字典序排序，小的在前，大的在后，没特判负数，$70pts$&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9473&quot;&gt;P9473 [yLOI2022] 西施江南&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这题数据范围也很大，$O(1)$，我们可以判断数列两两个数是否互质，如果互质直接输出 $No$ 即可，可以大大减少复杂度，但仍不是正解， $80pts$&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9474&quot;&gt;P9474 [yLOI2022] 长安幻世绘&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开始看题以为求最大，觉得很简单，后来发现求最小，没什么思路，打了单调递增和 $m$ $=$ $\lceil \frac{n}{2} \rceil$ 的部分分 $20pts$&lt;/p&gt;
+&lt;p&gt;（后天估值更新，估计红了&lt;s&gt;开心&lt;/s&gt;）&lt;/p&gt;
+&lt;h1&gt;20210723&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P2261&quot;&gt;P2261 [CQOI2007] 余数求和&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这道题虽然代码短，但想出来还是稍有难度，重点写一下我不理解的两个点&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1.为什么 $R$ $=$ $\lfloor\frac{n}{\lfloor\frac{n}{L}\rfloor}\rfloor$ $?$&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$R=L+\lfloor\frac{P}{k}\rfloor=L + \lfloor\frac{n%L}{\lfloor\frac{n}{L}\rfloor}\rfloor = L+\lfloor\frac{n-\lfloor\frac{n}{L}\rfloor L}{\lfloor\frac{n}{L}\rfloor}\rfloor = \lfloor L+\frac{n-\lfloor\frac{n}{L}\rfloor L}{\lfloor\frac{n}{L}\rfloor}\rfloor =  \lfloor\frac{\lfloor\frac{n}{L}\rfloor L}{\lfloor\frac{n}{L}\rfloor}+\frac{n-\lfloor\frac{n}{L}\rfloor L}{\lfloor\frac{n}{l}\rfloor}\rfloor=\lfloor\frac{n}{\lfloor\frac{n}{L}\rfloor}\rfloor$&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2.$\frac{l+r}{2}$ 为什么是平均数 $?$&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;由通项公式可得 $Sum= \frac{first}{last} ×$ 项数 $÷ 2 $ ，将分母分子同时除以项数就变成了 $\frac{first+last}{2n}$ ，因为分式仍然成立，所以我们再将分母除以项数，也就是 $n$ ，那么显而易见，平均数 $=$  $\frac{Sum}{n}$，综上成立&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;s&gt;（顺便吐槽一下：Latex 用起来真麻烦啊）&lt;/s&gt;&lt;/p&gt;
+&lt;h1&gt;20230803&lt;/h1&gt;
+&lt;p&gt;暑假新的一轮集训又开始了，又回到了那个熟悉的校园&lt;/p&gt;
+&lt;p&gt;上午lhs学长讲了搜索相关的知识，下午只写了一道题&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1120&quot;&gt;P1120 小木棍&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;晚上改了一下才A，一直WA前几个点，原因是在搜索途中未返回，导致没有答案，这时候输出sum即可，为了剪枝，我们需要提前记录号 $Max$ 和 $Min$，再把 $&amp;gt;50$ ，的数字排除，然后按照 $Len$ 排序，最后开始搜索。&lt;/p&gt;
+&lt;p&gt;对于模拟退火还是比较模糊，感觉有点玄学，没有完全理解，题目也是一知半解，不是很清楚。&lt;/p&gt;
+&lt;h1&gt;20230804&lt;/h1&gt;
+&lt;p&gt;今天讲了字符串，感觉有些难度，只写了一道题&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1210&quot;&gt;P1210 [USACO1.3] 最长的回文 Calf Flac&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在输入时遇到了一些问题，如果直接 $string$ 读入，不能读入空格，所以需要另辟蹊径，又尝试了别的方法，最后用了 $getline$ ，读入后统一字母大小写，然后从每个字符向两边遍历，要先记录一下每个字符串的位置，以便最后输出，不解的是，用 $string$ ，会 $Wa$ 掉，但用 $char$ 数组就可以 $A$ 。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1659&quot;&gt;P1659 [国家集训队] 拉拉队排练&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;先打了个暴力，没有直接写正解，但是暴力写了还有一段时间&lt;/p&gt;
+&lt;h1&gt;20230805&lt;/h1&gt;
+&lt;p&gt;今天讲了单调队列，写了模板题&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1886&quot;&gt;P1886 滑动窗口 /【模板】单调队列&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;看 $oi-wiki$ 上的例子，用 $list$ 写了一下，印象比较深刻，用两个单调队列分别存储 $Max$ 和 $Min$ 。&lt;/p&gt;
+&lt;p&gt;打了洛谷月赛&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9497?contestId=122184&quot;&gt;P9497 「RiOI-2」weight&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;直接模拟+优化即可，直接暴力可以拿 $50pts$，排序后并用 $lower$_$blound$ 寻找第一个大于等于 $v$ 的，$n*n-i+1$ ，就是序列中大于等于 $v$ 的个数&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9496?contestId=122184&quot;&gt;P9496 「RiOI-2」hacker&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;分别将两个10进制数转为2进制数，&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;20230806&lt;/h1&gt;
+&lt;p&gt;今天写的自己找的题&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1114&quot;&gt; P1114 “非常男女”计划&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;根据题意分别从男女生做前缀和，然后枚举符合题意即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;下午打了洛谷比赛&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9502?contestId=101050&quot;&gt;P9502 『MGOI』Simple Round I | A. 魔法数字&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;枚举 $i$ 即可，最后输出 $i-2$&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9503?contestId=101050&quot;&gt;P9503 『MGOI』Simple Round I | B. 魔法照相馆&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;小模拟，注意区分颜色细节&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3375&quot;&gt;P3375 【模板】KMP 字符串匹配&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对 $kmp$ ，发现之前写的时候一点也不懂，现在理解又深了一点，打了 $kmp$ 模板&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;20230807&lt;/h1&gt;
+&lt;p&gt;早上先复习了一下昨天的 $kmp$ 板子&lt;/p&gt;
+&lt;p&gt;做了一些杂题&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1551&quot;&gt;P1551 亲戚&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;并查集板子，很有效的复习了一下&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P4377&quot;&gt;P4377 [USACO18OPEN] Talent Show G&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;学长讲的分数规划，把 $a[i]-mid×b[i]$ ，看做价值，用01背包当 $check$ ，再用二分即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P5089&quot;&gt;P5089 [eJOI2018] 元素周期表&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;学长讲的二分图， $oiwiki$ 上看了一下遍历，用链式前向星建图，再用 $dfs$ ，把每个元素 $(x,y)$ ，看作一条边，而反过来，对于二分图中的某一个连通分量，也可以通过核聚变的方式，把这个连通分量变成“完全”的，也就是连接左右两部分的所有边都存在。
+那么答案就是将这个二分图添加尽量少的边使得它联通的边数。
+也就是：&lt;strong&gt;连通分量的个数−1&lt;/strong&gt;。没有完全理解。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;下面两道有效的复习了一下 $STL$&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1540&quot;&gt;P1540 [NOIP2010 提高组] 机器翻译&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;用队列（$queue$）， 存储序列，在查字典时，如果没有就入队并 $ans++$ ，时刻判断 $Q.size()$ ，如果超过 $m$ ，就出队&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P4387&quot;&gt;P4387 【深基15.习9】验证栈序列&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;栈，按照要求的顺序入栈，并按照顺序出栈，最后判断栈是否为空即可，要注意每次询问要清空栈&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;20230808&lt;/h1&gt;
+&lt;p&gt;早上写了写 $tarjan$ ，并复习了 $kmp$&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/B3609&quot;&gt;B3609 [图论与代数结构 701] 强连通分量&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;后来写了写缩点，没写成（&lt;/p&gt;
+&lt;p&gt;下午一直学网络流，写了篇&lt;a href=&quot;https://www.luogu.com.cn/blog/limengze/wang-luo-liu&quot;&gt;博客&lt;/a&gt;，认识挺深刻的。&lt;/p&gt;
+&lt;p&gt;后来写了一些关于网络流的题&lt;s&gt;模板题&lt;/s&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P3376&quot;&gt;P3376 【模板】网络最大流&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P2740&quot;&gt;P2740 [USACO4.2] 草地排水Drainage Ditches&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;20230809&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;早上复习了一下网络流，顺便打了个板子题&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/B3606&quot;&gt;B3606 [图论与代数结构 501] 网络流_1&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;突然接触到了一些交互题，于是找了一些做&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1733&quot;&gt;P1733 猜数（IO交互版）&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;第一次接触感觉有点奇妙，对一些操作不太懂&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;20230810&lt;/h1&gt;
+&lt;p&gt;上午模拟赛&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://sjzezoj.com/problem/1959&quot;&gt;#1959. 【cdw-2模拟题T1】解方程&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;没想到正解，用二分优化了一下暴力， $30pts$ ，正解是对 $n$ 分解质因数，因为原式可化简为 $(x+y)(x^2-xy+y^2)=n^2$ ，枚举因数 $(x+y)$ 后解二次方程&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://sjzezoj.com/problem/1911&quot;&gt;#1911. M 弟娃（magic）&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;考场上没什么思路，就打了个暴力 $30pts$ ，正解是，考虑对于一对点，将哪些点作为根会使这对点产生贡献。现在假定 1 为实际根，分两种情况：若这两个点不是祖先儿子关系，则将根选在两个点的子树里时，这对点会产生贡献；若这两个点是祖先儿子关系，令深度较深的点为 $x$ ，较浅的为 $y$ ， $y$ 在这条链上的儿子为 $z$ ，则将根选在 $x$ 的子树里，或是不在 $z$ 的子树里时，这对点会产生贡献。
+求出 $dfs$ 序，相当于我们只需要支持区间加，全局 $max$ 即可。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://sjzezoj.com/problem/1698&quot;&gt;#1698. 【2022.10.27 联考】传送&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;考场上还是没什么思路，跑了个 $Dijkstra$ ，样例过了（还想着骗分），结果（太惨了不说了）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://sjzezoj.com/problem/1698/solutions&quot;&gt;题解&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://sjzezoj.com/problem/1917&quot;&gt;#1917. 朝鲜时蔬（vegetable）&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这道题贴心了给了提示，但是仍然很难绷，看不懂，直接输样例走了（&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://sjzezoj.com/problem/1917/solutions&quot;&gt;题解&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;20230811&lt;/h1&gt;
+&lt;p&gt;复习了各种板子&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/B3607&quot;&gt;B3607 [图论与代数结构 502] 网络流_2&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P3372&quot;&gt;P3372 【模板】线段树 1&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;luogu.com.cn/problem/P3374&quot;&gt;P3374 【模板】树状数组 1&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;20230812&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P8218&quot;&gt; P8218 【深进1.例1】求区间和&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;前缀和板子题&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P4145&quot;&gt;P4145 上帝造题的七分钟 2 / 花神游历各国&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;学习了分块，对分块有了新的理解&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;20230813&lt;/h1&gt;
+&lt;p&gt;打了洛谷月赛&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9516&quot;&gt;P9516 color&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;按题意模拟即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9517&quot;&gt;P9517 drink&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;寻找第一次出现的坐标 $l$ 和最后一次出现的 $r$ ，输出 $r-l+1$ 即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;杂题&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9508&quot;&gt;P9508 『STA - R3』存在&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;手膜+找规律得到，当序列为 $a,1,1,b,1,1,c ......$ 时，满足题意且种类数最大，于是可以3个一组来模拟这个序列&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P6784&quot;&gt;P6784 「EZEC-3」造房子&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;先将 $a$ 和 $b$ 用 $c$ ，尽量使 $abs(a-b)$ ，最小，然后直接模拟 $a-=i , b-=i$ 即可。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;20230814&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1001&quot;&gt;P1001 A+B Problem&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;用随机数优化了深搜，终于不T了，伟大的转折&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P8814&quot;&gt;P8814 [CSP-J 2022] 解密&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;重写了 $CSP$ 没过的题，用完全平方公式得出， $(p+q) $ 和 $(p-q)$ ，于是可以得出 $p,q$ ,再用 $if$ 判断即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/AT_joi2017yo_a&quot;&gt; AT_joi2017yo_a 電子レンジ (Microwave)&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;模拟题，分温度正负即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;20230815&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P1616&quot;&gt;P1616 疯狂的采药&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;复习了DP，01背包板子题&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/T366963&quot;&gt;T366963 SCP 2023 第一轮（初赛 J 组）模拟&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;做了洛谷上的第一轮测试，只有40+分（害怕）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P4141&quot;&gt;P4141 消失之物&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;暴力 $DP$ ， $O(n^2m)$可以过，枚举 $k$&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.luogu.com.cn/problem/P9539&quot;&gt;P9539 「AWOI Round 2 B」树学&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;洛谷比赛上的题，可以使用贪心，因为字典序最小肯定是都想选 $a$ 的。我们给打算选和原本字符串相同的位置的地方打标记。从左到右扫一遍，$a$ 的位置都打，除非现在的标记数已经超过 $r$ 了，直接退出不打标记了。如果扫完了以后标记数还不到 $l$ 个，那直接从后往前扫，只要没被标记就标记，直到标记到 $l$ 个。&lt;/p&gt;
+&lt;/blockquote&gt;
 </content:encoded></item><item><title>CF1772A A+B? 题解</title><link>https://limz520.github.io/posts/cf1772a-ab-%E9%A2%98%E8%A7%A3/</link><guid isPermaLink="true">https://limz520.github.io/posts/cf1772a-ab-%E9%A2%98%E8%A7%A3/</guid><description>题解</description><pubDate>Mon, 30 Jan 2023 00:00:00 GMT</pubDate><content:encoded/></item><item><title>CF63A Sinking Ship 题解</title><link>https://limz520.github.io/posts/cf63a-sinking-ship-%E9%A2%98%E8%A7%A3/</link><guid isPermaLink="true">https://limz520.github.io/posts/cf63a-sinking-ship-%E9%A2%98%E8%A7%A3/</guid><description>题解</description><pubDate>Mon, 30 Jan 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;前置知识&lt;/h2&gt;
 &lt;h3&gt;结构体+sort&lt;/h3&gt;
 &lt;h2&gt;题目大意&lt;/h2&gt;
