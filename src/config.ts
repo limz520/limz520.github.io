@@ -358,7 +358,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/touxiang.heif", // 相对于 /src 目录。如果以 '/' 开头，则相对于 /public 目录
+	avatar: "assets/images/touxiang.webp", // 相对于 /src 目录。如果以 '/' 开头，则相对于 /public 目录
 	name: "limengze",
 	bio: "记录想法和闲言碎语",
 	typewriter: {
